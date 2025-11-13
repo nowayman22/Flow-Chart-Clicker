@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart Automation Tool - Documentation</title>
+    <style>
+        :root {
+            --bg-color: #282c34;
+            --text-color: #abb2bf;
+            --header-color: #61afef;
+            --card-bg: #21252b;
+            --card-border: #3a4048;
+            --accent-color: #98c379;
+            --code-bg: #1e2228;
+            --link-color: #56b6c2;
+            --hotkey-color: #E5C07B;
+            --error-color: #E06C75;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid var(--card-border);
+        }
+        h1, h2, h3, h4 {
+            color: var(--header-color);
+            margin-top: 2rem;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        h2 {
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: var(--link-color);
+        }
+        h4 {
+            color: var(--hotkey-color);
+        }
+        .navbar {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 0;
+            text-align: center;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .navbar a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: var(--card-border);
+            color: white;
+        }
+        section {
+            padding-top: 70px;
+            margin-top: -70px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        code {
+            background-color: var(--code-bg);
+            color: var(--accent-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+        }
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--card-border);
+        }
+        pre code {
+            padding: 0;
+            background-color: transparent;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: var(--link-color);
+        }
+        strong {
+            color: var(--accent-color);
+        }
+        .hotkey {
+            display: inline-block;
+            border: 1px solid var(--card-border);
+            padding: 2px 8px;
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            font-weight: bold;
+            color: var(--hotkey-color);
+        }
+        .warning {
+            border-left: 5px solid var(--hotkey-color);
+            background-color: rgba(229, 192, 123, 0.1);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .tip {
+            border-left: 5px solid var(--accent-color);
+            background-color: rgba(152, 195, 121, 0.1);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#introduction">Introduction</a>
+        <a href="#setup">Setup</a>
+        <a href="#ui">UI Guide</a>
+        <a href="#global-settings">Global Settings</a>
+        <a href="#steps-guide">Guide to Steps</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#hotkeys">Hotkeys</a>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Flowchart Automation Tool</h1>
+            <p>A comprehensive guide to understanding and using the application.</p>
+        </header>
+
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <div class="card">
+                <p>The Flowchart Automation Tool is a powerful Python application designed for automating on-screen tasks. Its key feature is a visual, node-based flowchart interface where users can define a sequence of actions and logical conditions without writing code.</p>
+                <p>It intelligently interacts with the screen by finding images (PNGs) or specific colors, reading numbers (OCR), and detecting screen movement. It can then perform actions like human-like mouse clicks, key presses, and typing. This makes it highly flexible for automating a wide range of repetitive tasks in games, data entry, software testing, and more.</p>
+                <h3>Key Capabilities:</h3>
+                <ul>
+                    <li><strong>Visual Flowchart Editor:</strong> Drag, drop, and connect nodes to build complex automation scripts. Includes search, multi-select, copy/paste, and an alignment grid.</li>
+                    <li><strong>Image & Color Detection:</strong> Find objects on the screen by matching a template PNG or a specific color. Supports single-file or folder-based matching and can count all occurrences.</li>
+                    <li><strong>Optical Character Recognition (OCR):</strong> Read numbers from a specified area of the screen to use in logical conditions (e.g., "is the value > 100?").</li>
+                    <li><strong>Movement Detection:</strong> Check if a region of the screen is static or has changed, allowing you to wait for animations to finish or for a new element to appear.</li>
+                    <li><strong>Advanced Mouse & Keyboard Control:</strong> Simulate human-like mouse movements with variations in speed and path. Execute clicks, key presses, and text typing.</li>
+                    <li><strong>Dynamic Logical Steps:</strong> Implement counters, wait timers, and conditional checks. Dynamically change global settings mid-script or inject data into other applications.</li>
+                    <li><strong>Configuration & Customization:</strong> Fine-tune global settings for mouse speed, scan intervals, and human-like randomization.</li>
+                    <li><strong>Integrated Tools:</strong> Includes a live testing panel, a detailed execution log, and a specialized Grand Exchange (GE) interface for Old School RuneScape players with a "Deal Finder" tool.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="setup">
+            <h2>Getting Started & Setup</h2>
+            <div class="card">
+                <h3>1. Dependencies</h3>
+                <p>The application relies on several Python libraries. It's recommended to create a file named <code>requirements.txt</code> with the following content:</p>
+<pre><code>opencv-python
+numpy
+pyautogui
+keyboard
+pytesseract
+Pillow
+</code></pre>
+                <p>Then, run this command in your terminal to install them:</p>
+                <pre><code>pip install -r requirements.txt</code></pre>
+                
+                <h3>2. Tesseract OCR Engine (Crucial for Number Steps)</h3>
+                <p>For the "Number" logical step to work, you need Google's Tesseract OCR engine. The application is configured to look for a <strong>portable installation</strong> first, which is the recommended setup method.</p>
+                <ol>
+                    <li>Download the Tesseract installer from the official <a href="https://github.com/UB-Mannheim/tesseract/wiki" target="_blank">Tesseract at UB Mannheim</a> page.</li>
+                    <li>Run the installer. You can install it to the default <code>C:\Program Files\Tesseract-OCR</code> location.</li>
+                    <li><strong>To make it portable:</strong> After installation is complete, create a folder named <code>tesseract</code> in the <strong>same directory as the application's script or executable</strong>.</li>
+                    <li>Copy the entire contents from the installation directory (e.g., <code>C:\Program Files\Tesseract-OCR</code>) into your new <code>tesseract</code> folder. The final structure should look like this:</li>
+                </ol>
+<pre><code>/YourAppFolder/
+|-- FlowchartClickerApp65.py  (or the .exe file)
+|-- Flow2.ico
+|-- /tesseract/
+    |-- tesseract.exe
+    |-- /tessdata/
+    |-- ... (other Tesseract files and folders)
+</code></pre>
+                <p>By using this portable structure, the application will automatically find and use Tesseract without needing a system-wide installation or path configuration, making it easy to move or share.</p>
+
+                <h3>3. Running the Application</h3>
+                <p>Once dependencies are installed, simply run the Python script from your terminal:</p>
+                <pre><code>python FlowchartClickerApp65.py</code></pre>
+            </div>
+        </section>
+
+        <section id="ui">
+            <h2>The User Interface (UI)</h2>
+            <p>The application is divided into two main panes: the Flowchart Editor on the left and the control panel on the right.</p>
+            <div class="card">
+                <h3>1. Flowchart Editor (Canvas)</h3>
+                <p>This is the main workspace where you build your automation script. It's a zoomable, pannable canvas.</p>
+                <ul>
+                    <li><strong>Search Bar:</strong> At the top, use the search bar to find steps by their number (e.g., "5"), name, or other properties (like the PNG filename). Pressing "Find" repeatedly will cycle through all matches.</li>
+                    <li><strong>Adding Nodes:</strong> Use the buttons in the Control Bar below the right panel to add new steps or notes to the canvas.</li>
+                    <li><strong>Moving Nodes:</strong> Click and drag any step or note to reposition it. You can select multiple nodes by holding <strong>Shift</strong> and clicking them, or by holding <strong>Shift</strong> and dragging a selection box.</li>
+                    <li><strong>Connections:</strong> Lines are automatically drawn between nodes to represent the flow of execution. <strong>Green</strong> lines are for success, <strong>orange</strong> for timeouts, <strong>dashed blue</strong> for the default "Next Step" action, and <strong>patterned red</strong> for logical conditions like a counter reaching its maximum.</li>
+                    <li><strong>Zoom & Pan:</strong> Use <span class="hotkey">Ctrl</span> + <strong>Mouse Wheel</strong> to zoom in and out. Use the <strong>Mouse Wheel</strong> to scroll vertically and <span class="hotkey">Shift</span> + <strong>Mouse Wheel</strong> to scroll horizontally.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>2. Right Panel (Resizable)</h3>
+                <p>This panel contains all the configuration and information tabs. It's composed of a resizable top section with tabs and a bottom section with control buttons. You can <strong>drag the separator</strong> between these two sections to give more or less space to the tabs.</p>
+                
+                <h4>Properties Tab</h4>
+                <p>This is the most important tab. When you select a step or note on the canvas, its properties (name, actions, conditions, flow control) will appear here for you to edit. If you select multiple steps, it will show properties that can be edited for all of them at once.</p>
+                
+                <h4>GE Interface Tab</h4>
+                <p>A specialized tool for OSRS players. Here you can input an item name and quantity, define buying and selling strategies (e.g., insta-buy, flip, add margin), and fetch real-time prices from the official wiki API. This data can then be used by "Type Text" logical steps.</p>
+                <ul>
+                    <li><strong>Find Profitable Flips:</strong> Opens the "Deal Finder" window, which scans all tradable items to find the best flipping opportunities based on your filters (min profit, max price, min volume).</li>
+                </ul>
+
+                <h4>Global Settings Tab</h4>
+                <p>Controls the default behavior of the entire script. These settings are explained in detail in the <a href="#global-settings">Global Settings</a> section.</p>
+
+                <h4>Testing Logic Tab</h4>
+                <p>This tab is a sandbox for testing your detection logic without running the entire script. It's essential for debugging and fine-tuning your steps.</p>
+                <h5>How to Use the Testing Tab:</h5>
+                <ol>
+                    <li><strong>Select Test Type:</strong> Choose whether you want to test for a "PNG", "Color", "PNG Count", "Color Count", or "Number". The settings below will change accordingly.</li>
+                    <li><strong>Configure Settings:</strong>
+                        <ul>
+                            <li>For a <strong>PNG Test</strong>, set the path to your image file/folder, the confidence threshold, and the image mode.</li>
+                            <li>For a <strong>Color Test</strong>, use the "Pick Color (F3)" button to capture a color from your screen, then set the tolerance and color space.</li>
+                            <li>For a <strong>Number Test</strong>, type an expression (e.g., <code>> 50</code>) and configure the OCR engine settings.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Select Area:</strong> Click "Select Area" and drag a box on your screen over the area you want to test. This area is independent of the Global Area or any step's area.</li>
+                    <li><strong>Run Test:</strong> Click the "Run Test" button. The application will take a single screenshot of the selected area and perform the detection.</li>
+                    <li><strong>Check Results:</strong> The results will be printed in the text box at the bottom. It will tell you if the object was found, the confidence score, the number of matches, or the OCR result.</li>
+                </ol>
+                <div class="tip"><strong>Tip:</strong> Always use the Testing Tab to confirm your detection settings work correctly before adding them to a complex flowchart. This will save you a lot of time.</div>
+
+                <h4>Execution Log Tab</h4>
+                <p>A timestamped log of all actions, detections, and errors that occur while the script is running. It's your primary tool for understanding what the script is doing and diagnosing problems.</p>
+                <h5>Using the Log for Diagnostics:</h5>
+                <ul>
+                    <li><strong>Follow the Flow:</strong> Each log entry is timestamped and often includes the step number, allowing you to trace the script's execution path in real-time.</li>
+                    <li><strong>Check Detection Details:</strong> When a PNG or Color step runs, it logs details like the area it's searching and the confidence threshold. Successful detections are logged in green, showing the confidence score.</li>
+                    <li><strong>Identify Failures:</strong> Failed detections and timeouts are logged in orange. This is the first place to look when your script gets stuck. The log will show which step is timing out.</li>
+                    <li><strong>Spot Errors:</strong> Critical errors (e.g., invalid input, file not found) are logged in red.</li>
+                    <li><strong>Search:</strong> Use the search bar to filter the log for specific keywords, like a step number ("Step 5") or an outcome ("FAILED").</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="global-settings">
+            <h2>Guide to Global Settings</h2>
+            <div class="card">
+                <p>These settings, found in the "Global Settings" tab, control the overall behavior of the automation engine. They act as the default values for many operations.</p>
+
+                <h4>Mouse Movement</h4>
+                <ul>
+                    <li><strong>Mode:</strong> Defines how mouse movement duration is calculated.
+                        <ul>
+                            <li><code>Regular</code>: Uses a fixed base speed for all movements. Simple and predictable.</li>
+                            <li><code>Dynamic</code>: Simulates more human-like movement. The speed is proportional to the distance—short moves are quick, and long cross-screen moves are slower. This is often better for avoiding detection in games.</li>
+                            <li><code>Pixels Per Second</code>: Moves the mouse at a constant velocity, so longer moves take proportionally longer.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Base Mouse Speed / Min & Max Move Time / Pixels Per Second:</strong> These are the values used by the corresponding modes above. All are measured in seconds unless otherwise noted.</li>
+                </ul>
+
+                <h4>Click Variation</h4>
+                <p>These settings add randomization to make clicks appear more human.</p>
+                <ul>
+                    <li><strong>Location Offset (±px):</strong> The final click location will be randomly offset from the target's center by up to this many pixels on both the X and Y axes. A value of <code>4</code> means the click can land anywhere in an 8x8 square around the true center.</li>
+                    <li><strong>Speed Variance (±s):</strong> Adds a random amount of time (plus or minus) to the calculated mouse move duration.</li>
+                    <li><strong>Hold Variance (±s):</strong> Adds a random amount of time to how long the mouse button is held down during a click.</li>
+                </ul>
+                
+                <h4>Global Timings</h4>
+                <ul>
+                    <li><strong>Scan Interval (s):</strong> The time in seconds the script waits between detection attempts when looking for a PNG, Color, or Number. A lower value (e.g., <code>0.1</code>) makes detection more responsive but uses more CPU. A higher value (e.g., <code>0.5</code>) is more efficient but may miss fleeting events.</li>
+                    <li><strong>Base Hold Duration (s):</strong> The default duration for how long the mouse button is held down for each click before any variance is applied.</li>
+                </ul>
+                
+                <h4>Flowchart Grid</h4>
+                <ul>
+                    <li><strong>Show Grid / Enable Grid Latching:</strong> Toggles a visual grid on the canvas. When "Latching" is enabled, nodes will snap to the nearest grid line when you move them, keeping your flowchart aligned.</li>
+                    <li><strong>Grid Spacing / Opacity:</strong> Controls the distance between grid lines and how visible they are.</li>
+                </ul>
+
+                <h4>Global Area (F4)</h4>
+                <p>This defines the default rectangular area of the screen that detection steps (PNG, Color, Number) will search within. If a step does not have its own specific area defined, it will use this Global Area. You can set it by typing coordinates, using the <strong>Select Area (<span class="hotkey">F4</span>)</strong> button, or setting it to <strong>Full Screen</strong>.</p>
+
+                <h4>Convenience</h4>
+                <ul>
+                    <li><strong>Hide Window on Capture:</strong> When checked, the main application window will hide itself before you pick a color (<span class="hotkey">F3</span>) or select an area (<span class="hotkey">F4</span>), so it doesn't get in the way of the capture.</li>
+                    <li><strong>Enable all 'Show Area' overlays:</strong> A master switch to instantly show or hide all visual overlays for steps that have "Show Area" enabled in their properties. Great for getting a quick overview of all your search zones.</li>
+                    <li><strong>Update 'Start Step' when stopped:</strong> When the script is stopped (via <span class="hotkey">F2</span> or a "Stop" action), the "Start Step" field will automatically be set to the step number that was just executing. This makes it easy to resume from where you left off.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="steps-guide">
+            <h2>In-Depth Guide to Steps & Their Properties</h2>
+            <p>This section provides a detailed breakdown of each step type and all its configurable properties found in the "Properties" tab.</p>
+            
+            <div class="card">
+                <h3>Common Properties (All Steps)</h3>
+                <ul>
+                    <li><code>Name</code>: A custom name for the step to help you identify it in the flowchart.</li>
+                    <li><code>Enable Execution Log</code>: If unchecked, this specific step will not print its actions to the log. Useful for reducing spam from very frequent, simple steps in a loop.</li>
+                    <li><strong>Flow Control - On Success:</strong> The action to take when the step completes successfully.
+                        <ul>
+                            <li><code>Delay After (s)</code>: A pause *after* the step's action is complete but *before* moving to the next step.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>PNG Step</h3>
+                <p>Searches the screen for a given image. This is the primary method for identifying buttons, objects, or status indicators.</p>
+                <h4>Properties</h4>
+                <ul>
+                    <li><strong>Action:</strong> What to do when the PNG is found.
+                        <ul>
+                            <li><code>Click Object</code> / <code>Right Click</code>: Moves to the center of the found image and performs the specified click.</li>
+                            <li><code>Detect Object</code>: Succeeds and moves on without any mouse action. Useful for checking if something is simply present or absent.</li>
+                            <li><code>PNG Count</code>: Changes the step's behavior to count all non-overlapping occurrences of the PNG. See "Count Condition" properties below.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Mode:</strong>
+                        <ul>
+                            <li><code>File</code>: Searches for a single, specific PNG file.</li>
+                            <li><code>Folder</code>: Searches for *any* PNG file contained within the selected folder. The first one found (or the best match, depending on Fast Mode) will be considered a match. Useful when an object can have multiple appearances.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Path:</strong> The file path to the PNG or the folder containing the PNGs. Use "Snip" to capture a new one or "Browse" to select an existing one.</li>
+                    <li><strong>Threshold:</strong> The required similarity score for a match, from 0.0 (anything matches) to 1.0 (perfect pixel-for-pixel match). A good starting point is <code>0.8</code>. For images with transparency, this requires a higher match quality.</li>
+                    <li><strong>Image Mode:</strong> How the screenshot and template image are processed before comparison.
+                        <ul>
+                            <li><code>Grayscale</code>: (Default, Fastest) Ignores color information. Best for most cases where the shape is unique.</li>
+                            <li><code>Color</code>: Performs the match using full color data. Slower, but necessary if you need to distinguish between two otherwise identical objects of different colors.</li>
+                            <li><code>Binary (B&W)</code>: Converts the image to pure black and white. Excellent for high-contrast elements like text or simple icons.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Area Buttons:</strong> Define a specific search area for this step, which overrides the Global Area. You can "Select Area", set it to "Full Screen", or "Use Global".</li>
+                    <li><strong>Fast Mode (Find First Match):</strong> When using Folder mode, this option makes the step succeed as soon as the very first match is found, which is much faster. If unchecked, it will scan for all images in the folder to find the one with the highest confidence score.</li>
+                </ul>
+                <h4>Count Condition (Only for "PNG Count" Action)</h4>
+                <ul>
+                    <li><code>Expression</code>: A condition to check against the number of found PNGs (e.g., <code>>= 1</code>, <code>== 0</code>, <code>< 5</code>). The step only succeeds if this expression is true.</li>
+                    <li><code>Max Cycles</code>: How many times to retry if the condition is false. A value of <code>1</code> means it will fail immediately. If set to <code>5</code>, it will retry the detection up to 4 more times, waiting for the "Scan Interval" between each attempt.</li>
+                </ul>
+                <h4>Flow Control</h4>
+                <ul>
+                    <li><strong>On Timeout / On Fail:</strong> The action to take if the PNG is not found within the <code>Timeout</code> period, or if the <code>PNG Count</code> expression is false after all cycles.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Color Step</h3>
+                <p>Searches the screen for a specific color or checks a single pixel's color.</p>
+                <h4>Properties</h4>
+                <ul>
+                    <li><strong>Action:</strong> Similar to the PNG step: <code>Click Object</code>, <code>Right Click</code>, <code>Detect Object</code>, or <code>Color Count</code>.</li>
+                    <li><strong>Pick (<span class="hotkey">F3</span>):</strong> Enters picker mode to capture a color and its coordinates from the screen.</li>
+                    <li><strong>Tolerance:</strong> How much the color can vary from the target color and still be considered a match. Higher values allow for more deviation.</li>
+                    <li><strong>Min Area (px):</strong> (Area mode only) The minimum number of contiguous pixels of the target color that must be found to count as a valid match. Prevents tiny, stray pixels from triggering a success.</li>
+                    <li><strong>Color Space:</strong>
+                        <ul>
+                            <li><code>HSV</code>: (Default, More Robust) Hue, Saturation, Value. This space is generally better at handling minor changes in lighting and shadow.</li>
+                            <li><code>RGB</code>: Red, Green, Blue. More intuitive, but can be sensitive to small lighting variations.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Pixel Detect Mode:</strong> A checkbox that fundamentally changes the step's behavior.
+                        <ul>
+                            <li><strong>Unchecked (Area Mode):</strong> Searches the entire specified Area for a blob of color meeting the <code>Min Area</code> requirement.</li>
+                            <li><strong>Checked (Pixel Mode):</strong> Ignores the Area settings. Instead, it checks the color of one single pixel at the exact coordinates captured with "Pick (F3)". This is extremely fast and precise for checking static UI elements like status indicators.</li>
+                        </ul>
+                    </li>
+                </ul>
+                 <h4>Count Condition & Flow Control</h4>
+                <p>These work identically to the PNG Step's count and flow control properties.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Click / Press Step</h3>
+                <p>A direct action step that does not perform any detection. It always succeeds immediately.</p>
+                <h4>Properties</h4>
+                <ul>
+                    <li><strong>Action:</strong>
+                        <ul>
+                            <li><code>Left Click</code> / <code>Right Click</code>: Moves to the given coordinates and performs the click.</li>
+                            <li><code>Move Only</code>: Moves the mouse to the coordinates without clicking.</li>
+                            <li><code>Click Only</code>: Clicks at the mouse's <strong>current location</strong> without moving it first.</li>
+                            <li><code>Key Press</code>: Ignores the coordinates and instead presses a keyboard key.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Get Loc (<span class="hotkey">F3</span>):</strong> Enters picker mode to capture the screen coordinates for mouse actions.</li>
+                    <li><strong>Key to Press:</strong> The key to be pressed for the "Key Press" action (e.g., <code>enter</code>, <code>a</code>, <code>ctrl</code>). Refer to the `pyautogui` library documentation for a full list of valid key strings.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Logical Step</h3>
+                <p>A versatile step for logic, timing, and data handling. Its properties change based on the selected Action type.</p>
+                
+                <h4>Action: Count</h4>
+                <p>Increments an internal counter. Perfect for tracking loop iterations or counting events before taking a different action.</p>
+                <ul>
+                    <li><code>Current Count</code>: A display of the counter's current value. Can be reset manually with the button.</li>
+                    <li><code>Max Count (0=inf)</code>: The value at which the special "On Count Reached" flow control is triggered. If <code>0</code>, it never triggers.</li>
+                    <li><code>Reset on Start (F2)</code>: If checked, the counter will be reset to 0 every time the main script is started.</li>
+                    <li><code>Reset on Count Reached</code>: If checked, the counter will automatically reset to 0 after it triggers the "On Count Reached" action.</li>
+                    <li><strong>Flow Control - On Count Reached:</strong> A unique flow path that only executes when <code>Current Count</code> >= <code>Max Count</code>.</li>
+                </ul>
+
+                <h4>Action: Wait</h4>
+                <p>Pauses execution for a set duration. Always succeeds after the time has passed.</p>
+                <ul>
+                    <li><code>Wait Duration (s)</code>: The number of seconds to pause the script. This is different from the "Delay After" property, as it is the step's entire purpose.</li>
+                </ul>
+                
+                <h4>Action: Type Text</h4>
+                <p>Simulates keyboard typing. Useful for filling out forms or entering commands.</p>
+                <ul>
+                    <li><strong>Source:</strong>
+                        <ul>
+                            <li><code>Static Text</code>: Types the exact text provided in the text box.</li>
+                            <li><code>From GE Interface</code>: Pulls a calculated value (Item Name, Quantity, Unit Price, Total Price) from the GE Interface tab and types it.</li>
+                        </ul>
+                    </li>
+                    <li><code>Press Enter after</code>: If checked, it will simulate pressing the Enter key after typing the text, with an optional delay.</li>
+                </ul>
+
+                <h4>Action: GE Inject</h4>
+                <p>Directly modifies the values in the GE Interface tab. This is useful for scripts that need to buy or sell a list of different items in a sequence.</p>
+                <ul>
+                    <li><code>Name</code> / <code>Quantity</code>: Select which field in the GE Interface to update.</li>
+                    <li><code>Item Name</code> / <code>Quantity</code>: The value to inject into the selected field.</li>
+                    <li><code>Refresh Price After Inject</code>: If checked, automatically triggers a new API price lookup after injecting the new item name.</li>
+                </ul>
+
+                <h4>Action: Settings Inject</h4>
+                <p>Dynamically changes a Global Setting in the middle of a script's execution. For example, you could temporarily increase the "Location Offset" to make clicks less accurate for a certain task, then change it back later.</p>
+                <ul>
+                    <li><code>Setting to Change</code>: A dropdown of injectable global settings.</li>
+                    <li><code>New Value</code>: The new value to assign to that setting.</li>
+                </ul>
+
+                <h4>Action: Number (OCR)</h4>
+                <p>Reads a number from the screen and evaluates a condition against it.</p>
+                <ul>
+                    <li><code>Expression</code>: The condition to check (e.g., <code>> 100</code>, <code>== 5</code>). The step succeeds if the condition is true and fails/times out if it's false or no number is found.</li>
+                    <li><code>Image Mode</code>: Pre-processes the image to improve OCR accuracy. <code>Binary (B&W)</code> is often the best for text.</li>
+                    <li><code>OEM</code> & <code>PSM</code>: Tesseract OCR engine settings. For reading a single number, the defaults (OEM 3, PSM 6 or 7) are usually effective. You can experiment if you have trouble.</li>
+                    <li><strong>Flow Control - On Timeout:</strong> This is triggered if the expression is false or no number is read. It's effectively an "On Fail" condition.</li>
+                </ul>
+
+                <h4>Action: Movement Detect</h4>
+                <p>Checks for changes in a screen region. <strong>It succeeds if the region is static (not moving).</strong> This is useful for waiting for an animation to stop or a progress bar to finish filling.</p>
+                <ul>
+                    <li><strong>Logic:</strong> On its first run within a loop/timeout period, it takes a "before" screenshot. On subsequent runs, it takes an "after" screenshot, compares them, and reports the percentage of pixels that have changed.</li>
+                    <li><code>Stillness Tolerance (%)</code>: The maximum allowed percentage of change for the area to be considered "still". If the measured change is below this tolerance, the step succeeds.</li>
+                    <li><strong>Flow Control - On Timeout:</strong> Triggered if the timeout is reached and the area has not yet been still.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="troubleshooting">
+            <h2>Troubleshooting & Best Practices</h2>
+            <div class="card">
+                <h3>Common Problems & Solutions</h3>
+                <dl>
+                    <dt>My PNG is not being found.</dt>
+                    <dd>
+                        <ul>
+                            <li><strong>Check the Area:</strong> Use the "Show Area" checkbox on the step to visualize the search area. Is the object fully inside it?</li>
+                            <li><strong>Lower the Threshold:</strong> Try lowering the confidence <code>Threshold</code> from <code>0.8</code> to <code>0.7</code> or <code>0.6</code>. The object might have subtle anti-aliasing or lighting variations.</li>
+                            <li><strong>Check Image Mode:</strong> Are you using <code>Grayscale</code> on an object where color is the only unique feature? Switch to <code>Color</code> mode.</li>
+                            <li><strong>Recapture the Snippet:</strong> The on-screen object might be slightly different from your template. Use the "Snip" button to capture a fresh image directly from the screen. Make sure your snippet is small and contains only the most unique parts of the object, avoiding large, simple backgrounds.</li>
+                        </ul>
+                    </dd>
+                    <br>
+                    <dt>My Color step is not working.</dt>
+                    <dd>
+                        <ul>
+                            <li><strong>Increase Tolerance:</strong> The on-screen color might be slightly different due to lighting or effects. Increase the <code>Tolerance</code> value.</li>
+                            <li><strong>Switch Color Space:</strong> <code>HSV</code> is usually more reliable than <code>RGB</code> for handling slight variations in brightness. Try switching to it.</li>
+                            <li><strong>Use Pixel Detect Mode:</strong> If you need to check a very specific, unchanging spot (like a status icon), Pixel Detect is faster and more reliable than area searching.</li>
+                        </ul>
+                    </dd>
+                    <br>
+                    <dt>OCR ("Number" step) is giving incorrect numbers or finding nothing.</dt>
+                    <dd>
+                        <ul>
+                            <li><strong>Tighten the Area:</strong> The search <code>Area</code> for OCR should be as tight as possible around just the numbers. Do not include borders, icons, or other graphics.</li>
+                            <li><strong>Use Binary Image Mode:</strong> <code>Binary (B&W)</code> mode provides the high contrast that OCR engines prefer.</li>
+                            <li><strong>Experiment with PSM:</strong> The Page Segmentation Mode (PSM) tells Tesseract how to interpret the image. <code>PSM 7</code> (Treat as single text line) or <code>PSM 8</code> (Treat as single word) are often good for reading isolated numbers.</li>
+                        </ul>
+                    </dd>
+                    <br>
+                    <dt>The script gets stuck on a step.</dt>
+                    <dd>
+                        <ul>
+                            <li><strong>Check the Execution Log:</strong> The log will show which step is repeatedly trying and failing. This is your starting point.</li>
+                            <li><strong>Check the Timeout:</strong> Does the failing step have a <code>Timeout</code> of 0? If so, it will retry forever. Give it a reasonable timeout (e.g., 5 seconds) and configure the "On Timeout" action to handle the failure, for example by looping back to a previous step.</li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <div class="card">
+                <h3>Best Practices</h3>
+                <ul>
+                    <li><strong>Test Incrementally:</strong> Use the "Testing Logic" tab extensively. Perfect your detection for one step before adding it to your flowchart.</li>
+                    <li><strong>Use Specific PNGs:</strong> Your template PNGs should be as small as possible while remaining unique. A whole button is bad; the unique icon on the button is good. This makes detection faster and more reliable.</li>
+                    <li><strong>Name Your Steps:</strong> Give every step a descriptive <code>Name</code>. "Check for inventory full" is much better than "PNG Step 5".</li>
+                    <li><strong>Use Annotations:</strong> Use <code>+ Add Note</code> to leave comments on your flowchart explaining complex logic or a sequence of steps. You will thank yourself later.</li>
+                    <li><strong>Build Recovery Paths:</strong> Don't assume every step will succeed. Use the "On Timeout" flow control to handle unexpected situations. For example, if a required button isn't found, you could have the script loop back and try again, or stop with an alert.</li>
+                    <li><strong>Leverage the "Count" Step:</strong> Use a counter to break out of loops that might run forever. For example, after 10 failed attempts to find a PNG, use the "On Count Reached" action to stop the script or try a different strategy.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="hotkeys">
+            <h2>Shortcuts & Hotkeys</h2>
+            <div class="card">
+                <p>The application registers global hotkeys that work even when the window is not focused.</p>
+                <ul>
+                    <li><span class="hotkey">F2</span> : Toggles the automation. If stopped, it starts. If running, it stops.</li>
+                    <li><span class="hotkey">F3</span> : The "Picker" hotkey. When in the properties panel for a Color or Location step, you can click the "Pick (F3)" or "Get Loc (F3)" button to enter picker mode. Move your mouse to the desired location on the screen and press <span class="hotkey">F3</span> to capture the color or coordinates.</li>
+                    <li><span class="hotkey">F4</span> : The "Area Selection" hotkey. Press this to bring up a screen overlay that allows you to click and drag to define a rectangular area. This can be used to set the Global Area or a specific step's search area.</li>
+                    <li><span class="hotkey">Ctrl + C</span> : Copies the selected step(s) to the internal clipboard.</li>
+                    <li><span class="hotkey">Ctrl + V</span> : Pastes the copied step(s) onto the canvas. The pasted steps will maintain their internal "Go to Step" connections.</li>
+                    <li><span class="hotkey">Delete</span> : Deletes the currently selected step(s) or note(s) after a confirmation prompt.</li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
