@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # --- Version 66 ---
 
 import tkinter as tk
@@ -77,7 +78,7 @@ class FlowchartClickerApp(
     ExecutorMixin, DetectionMixin, MouseActionsMixin, GEMixin,
     CaptureMixin, FileOpsMixin, OverlaysMixin, UtilsMixin
 ):
-    """Visual node-based automation tool — see README.md for usage."""
+    """Visual node-based automation tool ï¿½ see README.md for usage."""
     MULTIPLE_VALUES = "< multiple values >"
 
     def __init__(self, root):
