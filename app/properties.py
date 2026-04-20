@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox, filedialog, scrolledtext
 from PIL import Image, ImageTk
 import os
 import copy
+from app import PYTESSERACT_AVAILABLE
 
 class PropertiesMixin:
     def populate_properties_panel(self):

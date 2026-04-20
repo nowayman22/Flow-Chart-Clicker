@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, scrolledtext
 import os
+from app import PYTESSERACT_AVAILABLE
 
 class PanelsMixin:
     def build_ui(self):
