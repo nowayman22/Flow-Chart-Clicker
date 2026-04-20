@@ -116,30 +116,37 @@ class FileOpsMixin:
     def delete_selected(self):
         if not self.selected_items or self.selected_items[0]['type'] != 'step':
             return
-        
-        indices_to_remove = sorted([item['index'] for item in self.selected_items], reverse=True)
-        for index in indices_to_remove:
+
+        remove_set = {item['index'] for item in self.selected_items}
+
+        for index in remove_set:
             if index in self.area_overlays:
                 self.area_overlays[index].destroy()
                 del self.area_overlays[index]
-        
-        index_map = {i: i for i in range(len(self.steps))}
-        for i in sorted(indices_to_remove, reverse=False):
-            index_map.pop(i)
-            for j in range(i + 1, len(self.steps)):
-                if j in index_map: index_map[j] -= 1
-        for index in indices_to_remove: self.steps.pop(index)
+
+        # Build old→new index map in a single pass (no shifting during iteration)
+        index_map = {}
+        new_idx = 0
+        for old_idx in range(len(self.steps)):
+            if old_idx not in remove_set:
+                index_map[old_idx] = new_idx
+                new_idx += 1
+
+        for index in sorted(remove_set, reverse=True):
+            self.steps.pop(index)
+
         for step in self.steps:
             for goto_key in ['on_success_goto_step', 'on_timeout_goto_step', 'on_count_reached_goto_step']:
-                if goto_key not in step: continue
-                old_target_idx = step.get(goto_key, 1) - 1
-                new_target_idx = index_map.get(old_target_idx, -1)
-                step[goto_key] = new_target_idx + 1 if new_target_idx != -1 else 1
-        self.log(f"Removed {len(indices_to_remove)} steps.")
+                if goto_key not in step:
+                    continue
+                old_target = step.get(goto_key, 1) - 1
+                step[goto_key] = index_map.get(old_target, 0) + 1
+
+        self.log(f"Removed {len(remove_set)} steps.")
         self.selected_items = []
         self.populate_properties_panel()
         self.redraw_flowchart()
-        self.update_all_area_overlays() # Refresh overlays as indices have changed
+        self.update_all_area_overlays()
 
     def duplicate_selected(self):
         if not self.selected_items or self.selected_items[0]['type'] != 'step': return
